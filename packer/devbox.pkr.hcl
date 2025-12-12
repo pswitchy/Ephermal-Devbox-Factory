@@ -52,7 +52,7 @@ build {
 
   # 1. Upload scripts to the VM
   provisioner "file" {
-    source      = "../scripts"
+    source      = "./scripts/"
     destination = "/tmp/scripts"
   }
 
