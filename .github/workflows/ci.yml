@@ -1,0 +1,30 @@
+name: DevBox Factory CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Validate PHP Script
+        run: php -l tools/gen-cloud-init.php
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+
+      - name: Init Packer
+        run: packer init packer/devbox.pkr.hcl
+
+      - name: Validate Packer Template
+        run: packer validate packer/devbox.pkr.hcl

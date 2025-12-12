@@ -1,0 +1,3 @@
+output_devbox/
+packer_cache/
+.DS_Store
